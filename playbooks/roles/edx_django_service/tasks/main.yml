@@ -104,6 +104,58 @@
     - devstack
     - devstack:install
 
+- name: Display var edx_django_service_code_dir
+  debug:
+    msg: "{{ edx_django_service_code_dir }}"
+
+- name: Display var edx_django_service_user
+  debug:
+    msg: "{{ edx_django_service_user }}"
+
+- name: Display var edx_django_service_migration_environment
+  debug:
+    msg: "{{ edx_django_service_migration_environment }}"
+
+- name: echo user
+  command: echo $USER
+  args:
+    chdir: "{{ edx_django_service_code_dir }}"
+  become_user: "{{ edx_django_service_user }}"
+  environment: "{{ edx_django_service_migration_environment }}"
+  when: migrate_db is defined and migrate_db|lower == "yes"
+  tags:
+    - migrate
+    - migrate:db
+
+
+- name: printenv
+  command: printenv
+  args:
+    chdir: "{{ edx_django_service_code_dir }}"
+  become_user: "{{ edx_django_service_user }}"
+  environment: "{{ edx_django_service_migration_environment }}"
+  when: migrate_db is defined and migrate_db|lower == "yes"
+  tags:
+    - migrate
+    - migrate:db
+  register: env
+
+- debug: msg="{{ env.stdout }}"
+
+- name: pwd
+  command: pwd
+  args:
+    chdir: "{{ edx_django_service_code_dir }}"
+  become_user: "{{ edx_django_service_user }}"
+  environment: "{{ edx_django_service_migration_environment }}"
+  when: migrate_db is defined and migrate_db|lower == "yes"
+  tags:
+    - migrate
+    - migrate:db
+  register: pwd
+
+- debug: msg="{{ pwd.stdout }}"
+
 - name: migrate database
   command: make migrate
   args:

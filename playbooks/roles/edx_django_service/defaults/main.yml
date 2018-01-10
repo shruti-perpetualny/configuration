@@ -40,8 +40,8 @@ edx_django_service_environment_extra: {}
 edx_django_service_environment: '{{ edx_django_service_environment_default | combine(edx_django_service_environment_extra) }}'
 
 edx_django_service_migration_environment_default:
-  DB_MIGRATION_USER: '{{ COMMON_MYSQL_MIGRATE_USER }}'
-  DB_MIGRATION_PASS: '{{ COMMON_MYSQL_MIGRATE_PASS }}'
+  DB_MIGRATION_USER: 'discov001'
+  DB_MIGRATION_PASS: 'password'
 edx_django_service_migration_environment: '{{ edx_django_service_environment|combine(edx_django_service_migration_environment_default) }}'
 
 edx_django_service_debian_pkgs_default:

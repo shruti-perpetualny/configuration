@@ -29,6 +29,7 @@
     state: directory
     owner: "{{ veda_pipeline_worker_service_name }}"
     group: "{{ common_web_group }}"
+    mode: 0775
   with_items:
     - "VEDA_WORKING"
   tags:

@@ -410,7 +410,7 @@ run_ansible set_hostname.yml -i "${deploy_host}," -e hostname_fqdn=${deploy_host
 
 if [[ $set_whitelabel == "true" ]]; then
     # Setup Whitelabel themes
-    run_ansible whitelabel.yml -i "${deploy_host}," $extra_var_arg -e@/edx/app/edx_ansible/server-vars.yml --user ubuntu
+    run_ansible whitelabel.yml -i "${deploy_host}," $extra_var_arg --user ubuntu
 fi
 
 rm -f "$extra_vars_file"

@@ -391,11 +391,6 @@ if [[ $reconfigure != "true" && $server_type == "full_edx_installation" ]]; then
     done
 fi
 
-if [[ $set_whitelabel == "true" ]]; then
-    # Setup Whitelabel themes
-    run_ansible whitelabel.yml -i "${deploy_host}," $extra_var_arg --user ubuntu
-fi
-
 # deploy the edx_ansible role
 run_ansible edx_ansible.yml -i "${deploy_host}," $extra_var_arg --user ubuntu
 cat $sandbox_secure_vars_file $sandbox_internal_vars_file $extra_vars_file | grep -v -E "_version|migrate_db" > ${extra_vars_file}_clean
@@ -413,6 +408,10 @@ fi
 # set the hostname
 run_ansible set_hostname.yml -i "${deploy_host}," -e hostname_fqdn=${deploy_host} --user ubuntu
 
+if [[ $set_whitelabel == "true" ]]; then
+    # Setup Whitelabel themes
+    run_ansible whitelabel.yml -i "${deploy_host}," $extra_var_arg -e@/edx/app/edx_ansible/server-vars.yml --user ubuntu
+fi
 
 rm -f "$extra_vars_file"
 rm -f ${extra_vars_file}_clean

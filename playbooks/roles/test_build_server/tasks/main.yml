@@ -41,6 +41,7 @@
     src: "boto.j2"
     dest: "{{ test_build_server_repo_path }}/.boto"
     owner: "{{ test_build_server_user }}"
+    group: root
     mode: 0600
 
 - name: Validate build environment

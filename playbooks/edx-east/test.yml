@@ -1,0 +1,6 @@
+- name: Mike
+  hosts: all
+  become: True
+  gather_facts: no
+  roles:
+    - mike
